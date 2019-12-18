@@ -1,0 +1,377 @@
+Script started on 2019-06-01 21:19:53-06:00
+]0;sijia.yin@csa3:~/cpsc355/Assignment3sijia.yin@csa3:~/cpsc355/Assignment3$ exitgdb assign3[7Pexitgdb assign3
+GNU gdb (GDB) Fedora 8.1.1-4.fc28
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "aarch64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from assign3...done.
+(gdb) sid   display  /i $pc
+1: x/i $pc
+<error: No registers.>
+(gdb) b loop2
+Breakpoint 1 at 0x400674: file assign3.s, line 69.
+(gdb) r
+Starting program: /home/uga/sijia.yin/cpsc355/Assignment3/assign3 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.27-38.fc28.aarch64
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+v[0]: 103
+v[1]: 198
+v[2]: 105
+v[3]: 115
+v[4]: 81
+v[5]: 255
+v[6]: 74
+v[7]: 236
+v[8]: 41
+v[9]: 205
+v[10]: 186
+v[11]: 171
+v[12]: 242
+v[13]: 251
+v[14]: 227
+v[15]: 70
+v[16]: 124
+v[17]: 194
+v[18]: 84
+v[19]: 248
+v[20]: 27
+v[21]: 232
+v[22]: 231
+v[23]: 141
+v[24]: 118
+v[25]: 90
+v[26]: 46
+v[27]: 99
+v[28]: 51
+v[29]: 159
+v[30]: 201
+v[31]: 154
+v[32]: 102
+v[33]: 50
+v[34]: 13
+v[35]: 183
+v[36]: 49
+v[37]: 88
+v[38]: 163
+v[39]: 90
+v[40]: 37
+v[41]: 93
+v[42]: 5
+v[43]: 23
+v[44]: 88
+v[45]: 233
+v[46]: 94
+v[47]: 212
+v[48]: 171
+v[49]: 178
+
+Breakpoint 1, loop2 () at assign3.s:69
+69	loop2:	ldr		w20, [x28, w19, SXTW 2]        //load the array from stack memory
+1: x/i $pc
+=> 0x400674 <loop2>:	ldr	w20, [x28, w19, sxtw #2]
+(gdb) rb loop2display/i $pc             x/d $fp+28
+0xfffffffff02c:	103
+(gdb) x/d $fp+28  32
+0xfffffffff030:	198
+(gdb) x/d $fp+32 6
+0xfffffffff034:	105
+(gdb) x/d $fp+36  40
+0xfffffffff038:	115
+(gdb) x/d $fp+40 4
+0xfffffffff03c:	81
+(gdb) x/d $fp+44 8
+0xfffffffff040:	255
+(gdb) x/d $fp+48  52
+0xfffffffff044:	74
+(gdb) x/d $fp+52 6
+0xfffffffff048:	236
+(gdb) x/d $fp+56  60
+0xfffffffff04c:	41
+(gdb) x/d $fp+60 4
+0xfffffffff050:	205
+(gdb) x/d $fp+64 8
+0xfffffffff054:	186
+(gdb) x/d $fp+68  72
+0xfffffffff058:	171
+(gdb) x/d $fp+72 6
+0xfffffffff05c:	242
+(gdb) x/d $fp+76  80
+0xfffffffff060:	251
+(gdb) x/d $fp+80 4
+0xfffffffff064:	227
+(gdb) x/d $fp+84 8
+0xfffffffff068:	70
+(gdb) x/d $fp+88  92
+0xfffffffff06c:	124
+(gdb) x/d $fp+92 6
+0xfffffffff070:	194
+(gdb) x/d $fp+96  100
+0xfffffffff074:	84
+(gdb) x/d $fp+100 4
+0xfffffffff078:	248
+(gdb) x/d $fp+104 8
+0xfffffffff07c:	27
+(gdb) x/d $fp+108  12
+0xfffffffff080:	232
+(gdb) x/d $fp+112 6
+0xfffffffff084:	231
+(gdb) x/d $fp+116  20
+0xfffffffff088:	141
+(gdb) x/d $fp+120 4
+0xfffffffff08c:	118
+(gdb) x/d $fp+124 8
+0xfffffffff090:	90
+(gdb) x/d $fp+128  32
+0xfffffffff094:	46
+(gdb) x/d $fp+132 6
+0xfffffffff098:	99
+(gdb) x/d $fp+136  40
+0xfffffffff09c:	51
+(gdb) x/d $fp+140 5 4
+0xfffffffff0a0:	159
+(gdb) x/d $fp+144 8
+0xfffffffff0a4:	201
+(gdb) x/d $fp+148  52
+0xfffffffff0a8:	154
+(gdb) x/d $fp+152 6
+0xfffffffff0ac:	102
+(gdb) x/d $fp+156  60
+0xfffffffff0b0:	50
+(gdb) x/d $fp+160  645664
+0xfffffffff0b4:	13
+(gdb) x/d $fp+164 8
+0xfffffffff0b8:	183
+(gdb) x/d $fp+168  72
+0xfffffffff0bc:	49
+(gdb) x/d $fp+172  76
+0xfffffffff0c0:	88
+(gdb) x/d $fp+176  80
+0xfffffffff0c4:	163
+(gdb) x/d $fp+180  84
+0xfffffffff0c8:	90
+(gdb) x/d $fp+184 8
+0xfffffffff0cc:	37
+(gdb) x/d $fp+188  92
+0xfffffffff0d0:	93
+(gdb) x/d $fp+192 6
+0xfffffffff0d4:	5
+(gdb) x/d $fp+196   200
+0xfffffffff0d8:	23
+(gdb) x/d $fp+200 4
+0xfffffffff0dc:	88
+(gdb) x/d $fp+204 8
+0xfffffffff0e0:	233
+(gdb) x/d $fp+208  12
+0xfffffffff0e4:	94
+(gdb) x/d $fp+212 6
+0xfffffffff0e8:	212
+(gdb) x/d $fp+216  20
+0xfffffffff0ec:	171
+(gdb) x/d $fp+220 4
+0xfffffffff0f0:	178
+(gdb) delete 1
+(gdb) b tets  st4
+Breakpoint 2 at 0x40072c: file assign3.s, line 131.
+(gdb) c
+Continuing.
+
+Sorted array:
+
+Breakpoint 2, test4 () at assign3.s:131
+131	test4:	ldr		w19, [fp, i_s]					//load i from the stack memory
+1: x/i $pc
+=> 0x40072c <test4>:	ldr	w19, [x29, #16]
+(gdb) cb 131delete 1
+Undefined command: "cb".  Try "help".
+(gdb) cb 131delete 1(gdb) c[Kb test4delete 1(gdb) x/d $fp+224   28
+0xfffffffff02c:	5
+(gdb) x/d $fp+28  32
+0xfffffffff030:	13
+(gdb) x/d $fp+32 6
+0xfffffffff034:	23
+(gdb) x/d $fp+36  40
+0xfffffffff038:	27
+(gdb) x/d $fp+40 4
+0xfffffffff03c:	37
+(gdb) x/d $fp+44 8
+0xfffffffff040:	41
+(gdb) x/d $fp+48  52
+0xfffffffff044:	46
+(gdb) x/d $fp+52 6
+0xfffffffff048:	49
+(gdb) x/d $fp+56  60
+0xfffffffff04c:	50
+(gdb) x/d $fp+60 4
+0xfffffffff050:	51
+(gdb) x/d $fp+64 8
+0xfffffffff054:	70
+(gdb) x/d $fp+68  72
+0xfffffffff058:	74
+(gdb) x/d $fp+72 6
+0xfffffffff05c:	81
+(gdb) x/d $fp+76  80
+0xfffffffff060:	84
+(gdb) x/d $fp+80 4
+0xfffffffff064:	88
+(gdb) x/d $fp+84 8
+0xfffffffff068:	88
+(gdb) x/d $fp+88  92
+0xfffffffff06c:	90
+(gdb) x/d $fp+92 6
+0xfffffffff070:	90
+(gdb) x/d $fp+96  100
+0xfffffffff074:	93
+(gdb) x/d $fp+100 4
+0xfffffffff078:	94
+(gdb) x/d $fp+104 8
+0xfffffffff07c:	99
+(gdb) x/d $fp+108  12
+0xfffffffff080:	102
+(gdb) x/d $fp+112 6
+0xfffffffff084:	103
+(gdb) x/d $fp+116  20
+0xfffffffff088:	105
+(gdb) x/d $fp+120 4
+0xfffffffff08c:	115
+(gdb) x/d $fp+124 8
+0xfffffffff090:	118
+(gdb) x/d $fp+128  32
+0xfffffffff094:	124
+(gdb) x/d $fp+132 6
+0xfffffffff098:	141
+(gdb) x/d $fp+136  40
+0xfffffffff09c:	154
+(gdb) x/d $fp+140 4
+0xfffffffff0a0:	159
+(gdb) x/d $fp+144 8
+0xfffffffff0a4:	163
+(gdb) x/d $fp+148  52
+0xfffffffff0a8:	171
+(gdb) x/d $fp+152  56
+0xfffffffff0ac:	171
+(gdb) x/d $fp+156  60
+0xfffffffff0b0:	178
+(gdb) x/d $fp+160 4
+0xfffffffff0b4:	183
+(gdb) x/d $fp+164 8
+0xfffffffff0b8:	186
+(gdb) x/d $fp+168  72
+0xfffffffff0bc:	194
+(gdb) x/d $fp+172 6
+0xfffffffff0c0:	198
+(gdb) x/d $fp+176  80
+0xfffffffff0c4:	201
+(gdb) x/d $fp+180 4
+0xfffffffff0c8:	205
+(gdb) x/d $fp+184 8
+0xfffffffff0cc:	212
+(gdb) x/d $fp+188  92
+0xfffffffff0d0:	227
+(gdb) x/d $fp+192 6
+0xfffffffff0d4:	231
+(gdb) x/d $fp+196   200
+0xfffffffff0d8:	232
+(gdb) x/d $fp+200 4
+0xfffffffff0dc:	233
+(gdb) x/d $fp+204 8
+0xfffffffff0e0:	236
+(gdb) x/d $fp+208  12
+0xfffffffff0e4:	242
+(gdb) x/d $fp+212 6
+0xfffffffff0e8:	248
+(gdb) x/d $fp+216  20
+0xfffffffff0ec:	251
+(gdb) x/d $fp+220 4
+0xfffffffff0f0:	255
+(gdb) delete 2
+(gdb) c
+Continuing.
+v[0]: 5
+v[1]: 13
+v[2]: 23
+v[3]: 27
+v[4]: 37
+v[5]: 41
+v[6]: 46
+v[7]: 49
+v[8]: 50
+v[9]: 51
+v[10]: 70
+v[11]: 74
+v[12]: 81
+v[13]: 84
+v[14]: 88
+v[15]: 88
+v[16]: 90
+v[17]: 90
+v[18]: 93
+v[19]: 94
+v[20]: 99
+v[21]: 102
+v[22]: 103
+v[23]: 105
+v[24]: 115
+v[25]: 118
+v[26]: 124
+v[27]: 141
+v[28]: 154
+v[29]: 159
+v[30]: 163
+v[31]: 171
+v[32]: 171
+v[33]: 178
+v[34]: 183
+v[35]: 186
+v[36]: 194
+v[37]: 198
+v[38]: 201
+v[39]: 205
+v[40]: 212
+v[41]: 227
+v[42]: 231
+v[43]: 232
+v[44]: 233
+v[45]: 236
+v[46]: 242
+v[47]: 248
+v[48]: 251
+v[49]: 255
+[Inferior 1 (process 3743) exited with code 013]
+(gdb) x/15i mia  ain
+   0x40060c <main>:	stp	x29, x30, [sp, #-240]!
+   0x400610 <main+4>:	mov	x29, sp
+   0x400614 <main+8>:	mov	x28, x29
+   0x400618 <main+12>:	add	x28, x28, #0x1c
+   0x40061c <main+16>:	mov	w19, #0x0                   	// #0
+   0x400620 <main+20>:	str	w19, [x29, #16]
+   0x400624 <main+24>:	b	0x40065c <test1>
+   0x400628 <loop1>:	bl	0x4004a0 <rand@plt>
+   0x40062c <loop1+4>:	and	w20, w0, #0xff
+   0x400630 <loop1+8>:	str	w20, [x28, w19, sxtw #2]
+   0x400634 <loop1+12>:	ldr	w19, [x29, #16]
+   0x400638 <loop1+16>:	ldr	w20, [x28, w19, sxtw #2]
+   0x40063c <loop1+20>:	adrp	x0, 0x400000
+   0x400640 <loop1+24>:	add	x0, x0, #0x5e4
+   0x400644 <loop1+28>:	mov	w1, w19
+(gdb) gcc-g
+Undefined command: "gcc-g".  Try "help".
+(gdb) q
+]0;sijia.yin@csa3:~/cpsc355/Assignment3sijia.yin@csa3:~/cpsc355/Assignment3$ exit
+exit
+
+Script done on 2019-06-01 21:29:53-06:00
