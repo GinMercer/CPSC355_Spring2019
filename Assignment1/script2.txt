@@ -1,0 +1,158 @@
+Script started on 2019-05-17 17:39:28-06:00
+No such schema ?org.gnome.gedit.preferences.editor?
+]0;sijia.yin@csa1:~/cpsc355/Assignment1sijia.yin@csa1:~/cpsc355/Assignment1$ d[Kgdb s[Kassign1b
+GNU gdb (GDB) Fedora 8.1.1-4.fc28
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "aarch64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from assign1b...done.
+(gdb) l
+1	//Auther: Sijia Yin
+2	//Date: May 17, 2019
+3	//Desc: Find the maximum of y = - 5x^3 - 31x^2 + 4x + 31 in the range -6 <= x <= 5.By stepping through the range one by one in a loop and testing.Use only long integers for x, and do not factor the expression.Use the printf() function to display to the screen the values of x, y and the current maximum on wach iteration of loop.
+4	//version two
+5	
+6					//the first coeficient of polynimial
+7					//the second coeficient of polynimial
+8					//the third coeficient
+9					//the constant
+10				//the value of x
+(gdb) l
+11				//the value of y
+12				//the maximum value 
+13					//frame pointer
+14					//link register
+15	
+16	format1:	.string "x = %d , y = %d , current maximum = %d\n" //the output sentence for x value and y value and current maximum value
+17	format2:	.string "MAX: y = %d\n" //the output sentence for the final maximum value
+18	
+19			.balign 4		//make word aligned
+20			.global main
+(gdb) l
+21	main:	stp x29,x30,[sp,-16]!	
+22			mov x29,sp
+23			mov x23,-6		//x = -6
+24			
+25			b test			//branch to loop test at bottom 
+26	
+27	loop:	mul x26,x23,x23        //calculate x^2
+28			mul x26,x26,x23        //calculate x^3
+29			mov x19,-5              //the first coeficient of the polynomial
+30			mul x26,x26,x19         //multiply -5 and x^3, get the result of the first part of the polynomial
+(gdb) l
+31	
+32			mul x27,x23,x23        //calculate x^2
+33			mov x20,-31             //the second coeficient of the polynomial
+34			mul x27,x27,x20         //multiply -31 and x^2, get the result of the second part of the polynomial
+35	
+36			mov x21,4		//the third coeficient of the polynomial
+37			mov x22,31		//the constant to 31
+38			madd x28,x21,x23,x22	//make x28 to have 4x+31
+39			
+40			add x24,x26,x27		//add -5x^3 and -31x^2 together
+(gdb) l
+41			add x24,x24,x28		//add -5x^3-31x^2 and 4x+31 together
+42			
+43			cmp x23,-6
+44			b.eq give
+45			b comp
+46	give:	mov x25,x24
+47			b prin
+48			
+49	comp:	cmp x24,x25             //compare y value and current maximum value
+50			b.le prin
+(gdb) l
+51			mov x25,x24             //if y > current maximum move y to current maximum value
+52	
+53	prin:	adrp x0,format1          //set the first arg(hight order bits)
+54			add x0,x0, :lo12:format1 //set the first arg(lower 12 bits)
+55			mov x1,x23              //set the second arg as x value
+56			mov x2,x24              //set the third arg as y value
+57			mov x3,x25              //set the fourth arg as the current maximum value
+58	
+59			bl printf               //call the printf() function
+60			add x23,x23,1          //make x+1 in every loop
+(gdb) l
+61			
+62	test:	cmp x23,5		//compare x value with 5
+63			b.le loop
+64	
+65	done:	adrp x0,format2		//set the first arg(hight order bits)
+66			add x0,x0, :lo12:format2//set the first arg(lower 12 bits)
+67			mov x1,x25		//set the second arg as the current maximum value
+68			bl printf		//call the printf() function
+69			mov w0,0
+70			ldp x29,x30,[sp],16	//restore stack
+(gdb) l
+71			ret			//return to OS
+72			
+73	
+(gdb) r
+Starting program: /home/uga/sijia.yin/cpsc355/Assignment1/assign1b 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.27-38.fc28.aarch64
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+x = -6 , y = -29 , current maximum = -29
+x = -5 , y = -139 , current maximum = -29
+x = -4 , y = -161 , current maximum = -29
+x = -3 , y = -125 , current maximum = -29
+x = -2 , y = -61 , current maximum = -29
+x = -1 , y = 1 , current maximum = 1
+x = 0 , y = 31 , current maximum = 31
+x = 1 , y = -1 , current maximum = 31
+x = 2 , y = -125 , current maximum = 31
+x = 3 , y = -371 , current maximum = 31
+x = 4 , y = -769 , current maximum = 31
+x = 5 , y = -1349 , current maximum = 31
+MAX: y = 31
+[Inferior 1 (process 7970) exited normally]
+(gdb) b 70
+Breakpoint 1 at 0x400664: file assign1b.s, line 70.
+(gdb) r
+Starting program: /home/uga/sijia.yin/cpsc355/Assignment1/assign1b 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+x = -6 , y = -29 , current maximum = -29
+x = -5 , y = -139 , current maximum = -29
+x = -4 , y = -161 , current maximum = -29
+x = -3 , y = -125 , current maximum = -29
+x = -2 , y = -61 , current maximum = -29
+x = -1 , y = 1 , current maximum = 1
+x = 0 , y = 31 , current maximum = 31
+x = 1 , y = -1 , current maximum = 31
+x = 2 , y = -125 , current maximum = 31
+x = 3 , y = -371 , current maximum = 31
+x = 4 , y = -769 , current maximum = 31
+x = 5 , y = -1349 , current maximum = 31
+MAX: y = 31
+
+Breakpoint 1, done () at assign1b.s:70
+70			ldp x29,x30,[sp],16	//restore stack
+(gdb) p $x25
+$1 = 31
+(gdb) c
+Continuing.
+[Inferior 1 (process 7988) exited normally]
+(gdb) q
+]0;sijia.yin@csa1:~/cpsc355/Assignment1sijia.yin@csa1:~/cpsc355/Assignment1$ exit
+exit
+
+Script done on 2019-05-17 17:41:44-06:00

@@ -1,0 +1,545 @@
+Script started on 2019-05-17 17:32:53-06:00
+No such schema ?org.gnome.gedit.preferences.editor?
+]0;sijia.yin@csa1:~/cpsc355/Assignment1sijia.yin@csa1:~/cpsc355/Assignment1$ gdb assign1
+GNU gdb (GDB) Fedora 8.1.1-4.fc28
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "aarch64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+assign1: No such file or directory.
+(gdb) q
+]0;sijia.yin@csa1:~/cpsc355/Assignment1sijia.yin@csa1:~/cpsc355/Assignment1$ gdb assign1a
+GNU gdb (GDB) Fedora 8.1.1-4.fc28
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "aarch64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from assign1a...done.
+(gdb) l
+warning: Source file is more recent than executable.
+1	//Auther: Sijia Yin
+2	//Date: May 14, 2019
+3	//Desc: Find the maximum of y = - 5x^3 - 31x^2 + 4x + 31 in the range -6 <= x <= 5.By stepping through the range one by one in a loop and testing.Use only long integers for x, and do not factor the expression.Use the printf() function to display to the screen the values of x, y and the current maximum on wach iteration of loop.
+4	//version one
+5	
+6		//x19: the value of x
+7		//x27: the value of y
+8		//x28: the maximum value
+9		//x29: fp
+10		//x30: lr
+(gdb) l
+11	
+12	format:	.string "x = %d , y = %d , current maximum = %d\n "	//the output sentence for x value and y value and current maximum value
+13	fmt:	.string "MAX: y = %d\n"	//the output sentence for the final maximum value
+14	
+15		.balign 4		//make instructions be word aligned
+16		.global main		//make "main" visible to the OSm
+17	
+18	main:	stp x29,x30,[sp,-16]!	//allocate stack space
+19		mov x29,sp		//update fp
+20		mov x19,-6		//initialize x for -6
+(gdb) l
+21	
+22	loop:	cmp x19,5		//pre-test loop compare x to 5
+23		b.gt done		//if x > 5 then go to done
+24		
+25		mul x20,x19,x19		//calculate x^2
+26		mul x20,x20,x19		//calculate x^3
+27		mov x21,-5		//the first coeficient of the polynomial
+28		mul x20,x20,x21		//multiply -5 and x^3, get the result of the first part of the polynomial
+29	
+30		mul x22,x19,x19		//calculate x^2
+(gdb) l
+31		mov x23,-31		//the second coeficient of the polynomial
+32		mul x22,x22,x23		//multiply -31 and x^2, get the result of the second part of the polynomial
+33	
+34		mov x24,4		//the third coeficient of the polynomial
+35		mul x25,x19,x24		//multiply 4 and x, get the result of the third part of the polynomial
+36	
+37		add x27,x20,x22		//add -5x^3 and -31x^2 together
+38		add x27,x27,x25		//add -5x^3-31x^2 and 4x together
+39		add x27,x27,31		//add -5x^3-31x^2+4x and 31 together
+40	
+(gdb) l
+41		cmp x19,-6		//compare x and -6
+42		b.eq give		//if x equal to -6 then go to give line
+43		b comp			//if x not equal to -6 then go to comp line
+44	
+45	comp:	cmp x27,x28		//compare y value and current maximum value
+46		b.le test		//if y <= current maximum then go to test
+47	give:	mov x28,x27		//if y > current maximum move y to current maximum value
+48	
+49	test:	adrp x0,format		//set the first arg(hight order bits)
+50		add x0,x0, :lo12:format	//set the first arg(lower 12 bits)
+(gdb) l
+51		mov x1,x19		//set the second arg as x value
+52		mov x2,x27		//set the third arg as y value
+53		mov x3,x28		//set the fourth arg as the current maximum value
+54	
+55		bl printf		//call the printf() function
+56		add x19,x19,1		//make x+1 in every loop
+57		b loop			//go to the top of the loop test
+58	
+59	done:	adrp x0,fmt		//set the first arg(hight order bits)
+60		add x0,x0, :lo12:fmt	//set the first arg(lower 12 bits)
+(gdb) l
+61		mov x1,x28		//set the second arg as the current maximum value
+62		bl printf		//call the printf() function
+63	
+64		mov w0,0		//set up return value of zero from main
+65		ldp x29,x30,[sp],16	//restore fp and lr from stack, post-increment sp
+66		ret			//return to the caller
+67	
+(gdb) l
+Line number 68 out of range; assign1a.s has 67 lines.
+(gdb) r
+Starting program: /home/uga/sijia.yin/cpsc355/Assignment1/assign1a 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.27-38.fc28.aarch64
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+x = -6 , y = -29 , current maximum = -29
+ x = -5 , y = -139 , current maximum = -29
+ x = -4 , y = -161 , current maximum = -29
+ x = -3 , y = -125 , current maximum = -29
+ x = -2 , y = -61 , current maximum = -29
+ x = -1 , y = 1 , current maximum = 1
+ x = 0 , y = 31 , current maximum = 31
+ x = 1 , y = -1 , current maximum = 31
+ x = 2 , y = -125 , current maximum = 31
+ x = 3 , y = -371 , current maximum = 31
+ x = 4 , y = -769 , current maximum = 31
+ x = 5 , y = -1349 , current maximum = 31
+ MAX: y = 31
+[Inferior 1 (process 7847) exited normally]
+(gdb) b 22
+Breakpoint 1 at 0x4005dc: file assign1a.s, line 22.
+(gdb) r
+Starting program: /home/uga/sijia.yin/cpsc355/Assignment1/assign1a 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+(gdb) b 57
+Breakpoint 2 at 0x400644: file assign1a.s, line 57.
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/uga/sijia.yin/cpsc355/Assignment1/assign1a 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+(gdb) ni
+25		mul x20,x19,x19		//calculate x^2
+(gdb) ni
+26		mul x20,x20,x19		//calculate x^3
+(gdb) p $x20
+$1 = 36
+(gdb) p $x20[4Pni
+27		mov x21,-5		//the first coeficient of the polynomial
+(gdb) nip $x20 1
+$2 = 4195472
+(gdb) p $x21      ni
+28		mul x20,x20,x21		//multiply -5 and x^3, get the result of the first part of the polynomial
+(gdb) dispaly   lay /I i$pc
+1: x/i $pc
+=> 0x4005ec <loop+20>:	mul	x20, x20, x21
+(gdb) display /i$pc(gdb) ni[K
+30		mul x22,x19,x19		//calculate x^2
+1: x/i $pc
+=> 0x4005f0 <loop+24>:	mul	x22, x19, x19
+(gdb) nidisplay /i$pc(gdb) ni[K[Knip $x20
+$3 = 1080
+(gdb) p $x20 2
+$4 = 0
+(gdb) p $x22  19
+$5 = -6
+(gdb) p $x19220[4Pni
+31		mov x23,-31		//the second coeficient of the polynomial
+1: x/i $pc
+=> 0x4005f4 <loop+28>:	mov	x23, #0xffffffffffffffe1    	// #-31
+(gdb) ni
+32		mul x22,x22,x23		//multiply -31 and x^2, get the result of the second part of the polynomial
+1: x/i $pc
+=> 0x4005f8 <loop+32>:	mul	x22, x22, x23
+(gdb) ni
+34		mov x24,4		//the third coeficient of the polynomial
+1: x/i $pc
+=> 0x4005fc <loop+36>:	mov	x24, #0x4                   	// #4
+(gdb) ni
+35		mul x25,x19,x24		//multiply 4 and x, get the result of the third part of the polynomial
+1: x/i $pc
+=> 0x400600 <loop+40>:	mul	x25, x19, x24
+(gdb) ni
+37		add x27,x20,x22		//add -5x^3 and -31x^2 together
+1: x/i $pc
+=> 0x400604 <loop+44>:	add	x27, x20, x22
+(gdb) ni
+38		add x27,x27,x25		//add -5x^3-31x^2 and 4x together
+1: x/i $pc
+=> 0x400608 <loop+48>:	add	x27, x27, x25
+(gdb) 
+39		add x27,x27,31		//add -5x^3-31x^2+4x and 31 together
+1: x/i $pc
+=> 0x40060c <loop+52>:	add	x27, x27, #0x1f
+(gdb) ni
+41		cmp x19,-6		//compare x and -6
+1: x/i $pc
+=> 0x400610 <loop+56>:	cmn	x19, #0x6
+(gdb) ni
+42		b.eq give		//if x equal to -6 then go to give line
+1: x/i $pc
+=> 0x400614 <loop+60>:	b.eq	0x400624 <give>  // b.none
+(gdb) ni
+give () at assign1a.s:47
+47	give:	mov x28,x27		//if y > current maximum move y to current maximum value
+1: x/i $pc
+=> 0x400624 <give>:	mov	x28, x27
+(gdb) ni
+test () at assign1a.s:49
+49	test:	adrp x0,format		//set the first arg(hight order bits)
+1: x/i $pc
+=> 0x400628 <test>:	adrp	x0, 0x400000
+(gdb) ni
+50		add x0,x0, :lo12:format	//set the first arg(lower 12 bits)
+1: x/i $pc
+=> 0x40062c <test+4>:	add	x0, x0, #0x594
+(gdb) ni
+51		mov x1,x19		//set the second arg as x value
+1: x/i $pc
+=> 0x400630 <test+8>:	mov	x1, x19
+(gdb) ni
+52		mov x2,x27		//set the third arg as y value
+1: x/i $pc
+=> 0x400634 <test+12>:	mov	x2, x27
+(gdb) ni
+53		mov x3,x28		//set the fourth arg as the current maximum value
+1: x/i $pc
+=> 0x400638 <test+16>:	mov	x3, x28
+(gdb) ni
+55		bl printf		//call the printf() function
+1: x/i $pc
+=> 0x40063c <test+20>:	bl	0x400480 <printf@plt>
+(gdb) ni
+x = -6 , y = -29 , current maximum = -29
+56		add x19,x19,1		//make x+1 in every loop
+1: x/i $pc
+=> 0x400640 <test+24>:	add	x19, x19, #0x1
+(gdb) ni
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) ni
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) ni
+25		mul x20,x19,x19		//calculate x^2
+1: x/i $pc
+=> 0x4005e0 <loop+8>:	mul	x20, x19, x19
+(gdb) ni
+26		mul x20,x20,x19		//calculate x^3
+1: x/i $pc
+=> 0x4005e4 <loop+12>:	mul	x20, x20, x19
+(gdb) ni
+27		mov x21,-5		//the first coeficient of the polynomial
+1: x/i $pc
+=> 0x4005e8 <loop+16>:	mov	x21, #0xfffffffffffffffb    	// #-5
+(gdb) ni
+28		mul x20,x20,x21		//multiply -5 and x^3, get the result of the first part of the polynomial
+1: x/i $pc
+=> 0x4005ec <loop+20>:	mul	x20, x20, x21
+(gdb) ni
+30		mul x22,x19,x19		//calculate x^2
+1: x/i $pc
+=> 0x4005f0 <loop+24>:	mul	x22, x19, x19
+(gdb) ni
+31		mov x23,-31		//the second coeficient of the polynomial
+1: x/i $pc
+=> 0x4005f4 <loop+28>:	mov	x23, #0xffffffffffffffe1    	// #-31
+(gdb) ni
+32		mul x22,x22,x23		//multiply -31 and x^2, get the result of the second part of the polynomial
+1: x/i $pc
+=> 0x4005f8 <loop+32>:	mul	x22, x22, x23
+(gdb) ni
+34		mov x24,4		//the third coeficient of the polynomial
+1: x/i $pc
+=> 0x4005fc <loop+36>:	mov	x24, #0x4                   	// #4
+(gdb) ni
+35		mul x25,x19,x24		//multiply 4 and x, get the result of the third part of the polynomial
+1: x/i $pc
+=> 0x400600 <loop+40>:	mul	x25, x19, x24
+(gdb) ni
+37		add x27,x20,x22		//add -5x^3 and -31x^2 together
+1: x/i $pc
+=> 0x400604 <loop+44>:	add	x27, x20, x22
+(gdb) ni
+38		add x27,x27,x25		//add -5x^3-31x^2 and 4x together
+1: x/i $pc
+=> 0x400608 <loop+48>:	add	x27, x27, x25
+(gdb) ni
+39		add x27,x27,31		//add -5x^3-31x^2+4x and 31 together
+1: x/i $pc
+=> 0x40060c <loop+52>:	add	x27, x27, #0x1f
+(gdb) ni
+41		cmp x19,-6		//compare x and -6
+1: x/i $pc
+=> 0x400610 <loop+56>:	cmn	x19, #0x6
+(gdb) ni
+42		b.eq give		//if x equal to -6 then go to give line
+1: x/i $pc
+=> 0x400614 <loop+60>:	b.eq	0x400624 <give>  // b.none
+(gdb) ni
+43		b comp			//if x not equal to -6 then go to comp line
+1: x/i $pc
+=> 0x400618 <loop+64>:	b	0x40061c <comp>
+(gdb) ni
+comp () at assign1a.s:45
+45	comp:	cmp x27,x28		//compare y value and current maximum value
+1: x/i $pc
+=> 0x40061c <comp>:	cmp	x27, x28
+(gdb) ni
+46		b.le test		//if y <= current maximum then go to test
+1: x/i $pc
+=> 0x400620 <comp+4>:	b.le	0x400628 <test>
+(gdb) ni
+test () at assign1a.s:49
+49	test:	adrp x0,format		//set the first arg(hight order bits)
+1: x/i $pc
+=> 0x400628 <test>:	adrp	x0, 0x400000
+(gdb) ni
+50		add x0,x0, :lo12:format	//set the first arg(lower 12 bits)
+1: x/i $pc
+=> 0x40062c <test+4>:	add	x0, x0, #0x594
+(gdb) ni
+51		mov x1,x19		//set the second arg as x value
+1: x/i $pc
+=> 0x400630 <test+8>:	mov	x1, x19
+(gdb) ni
+52		mov x2,x27		//set the third arg as y value
+1: x/i $pc
+=> 0x400634 <test+12>:	mov	x2, x27
+(gdb) ni
+53		mov x3,x28		//set the fourth arg as the current maximum value
+1: x/i $pc
+=> 0x400638 <test+16>:	mov	x3, x28
+(gdb) ni
+55		bl printf		//call the printf() function
+1: x/i $pc
+=> 0x40063c <test+20>:	bl	0x400480 <printf@plt>
+(gdb) ni
+ x = -5 , y = -139 , current maximum = -29
+56		add x19,x19,1		//make x+1 in every loop
+1: x/i $pc
+=> 0x400640 <test+24>:	add	x19, x19, #0x1
+(gdb) c
+Continuing.
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = -4 , y = -161 , current maximum = -29
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = -3 , y = -125 , current maximum = -29
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = -2 , y = -61 , current maximum = -29
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) cc
+Undefined command: "cc".  Try "help".
+(gdb) c
+Continuing.
+ x = -1 , y = 1 , current maximum = 1
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = 0 , y = 31 , current maximum = 31
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = 1 , y = -1 , current maximum = 31
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = 2 , y = -125 , current maximum = 31
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = 3 , y = -371 , current maximum = 31
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = 4 , y = -769 , current maximum = 31
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ x = 5 , y = -1349 , current maximum = 31
+
+Breakpoint 2, test () at assign1a.s:57
+57		b loop			//go to the top of the loop test
+1: x/i $pc
+=> 0x400644 <test+28>:	b	0x4005d8 <loop>
+(gdb) q c
+Continuing.
+
+Breakpoint 1, loop () at assign1a.s:23
+23		b.gt done		//if x > 5 then go to done
+1: x/i $pc
+=> 0x4005dc <loop+4>:	b.gt	0x400648 <done>
+(gdb) c
+Continuing.
+ MAX: y = 31
+[Inferior 1 (process 7857) exited normally]
+(gdb) q
+]0;sijia.yin@csa1:~/cpsc355/Assignment1sijia.yin@csa1:~/cpsc355/Assignment1$ exit
+exit
+
+Script done on 2019-05-17 17:39:11-06:00
