@@ -1,0 +1,31 @@
+Script started on 2019-06-16 11:45:59-06:00
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 12 21 2019[K[K[K[K[K[K5
+December 25th is Winter
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 12 25[K[K[K[K[K01 01[K[K01
+January 1st is Winter
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 01 01[K2
+January 2nd is Winter
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 01 02[K3
+January 3rd is Winter
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 01 03[K4
+January 4th is Winter
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 01 04[K[K21[K[K[K[K[K07 15
+July 15th is Summer
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 07 15[K6
+July 16th is Summer
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 07 16[K[K21
+July 21st is Summer
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 07 21[K2
+July 22nd is Summer
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 07 22[K3
+July 23rd is Summer
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 07 23[K4
+July 24th is Summer
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 07 24[K[K[K[K[K11 11
+November 11th is Fall
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ ./a5b 11 11[K[K[K
+usage: a5b mm dd
+]0;sijia.yin@csa2:~/cpsc355/Assignment5sijia.yin@csa2:~/cpsc355/Assignment5$ exit
+exit
+
+Script done on 2019-06-16 11:47:46-06:00
