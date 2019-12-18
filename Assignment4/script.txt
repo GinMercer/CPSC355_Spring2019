@@ -1,0 +1,218 @@
+Script started on 2019-06-08 16:55:16-06:00
+]0;sijia.yin@csa2:~/cpsc355/Assignment4sijia.yin@csa2:~/cpsc355/Assignment4$ gdb assign4
+GNU gdb (GDB) Fedora 8.1.1-4.fc28
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "aarch64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from assign4...done.
+(gdb) b 1
+Breakpoint 1 at 0x400610: file assign4.s, line 1.
+(gdb) r
+Starting program: /home/uga/sijia.yin/cpsc355/Assignment4/assign4 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.27-38.fc28.aarch64
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+
+Breakpoint 1, main () at assign4.s:32
+32			mov 	x29, sp								//update fp
+(gdb) n
+34			add 	x19, x29, firstBox_s			//set the base in the stack for firstbox
+(gdb) n
+35			mov 	x0, x19						//let firstbox address as argument
+(gdb) n
+36			bl 		newBox								//call subroutine newBox
+(gdb) n
+38			add 	x20, x29, secondBox_s			//set the base in the stack for secondbox
+(gdb) x/d $fp+16
+0xfffffffff0d0:	0
+(gdb) x/d $fp+16(gdb) n[Kx/d $fp+16  20
+0xfffffffff0d4:	0
+(gdb) x/d $fp+20 4
+0xfffffffff0d8:	1
+(gdb) x/d $fp+24 8
+0xfffffffff0dc:	1
+(gdb) x/d $fp+28  32
+0xfffffffff0e0:	1
+(gdb) n
+39			mov 	x0, x20						//let secondbox address as argument
+(gdb) n
+40			bl 		newBox								//call subroutine newBox
+(gdb) n
+42			adrp 	x0, format1							//print format1
+(gdb) nx/d $fp+3228  36
+0xfffffffff0e4:	0
+(gdb) x/d $fp+36  40
+0xfffffffff0e8:	0
+(gdb) x/d $fp+40 4
+0xfffffffff0ec:	1
+(gdb) x/d $fp+44 8
+0xfffffffff0f0:	1
+(gdb) x/d $fp+48  52
+0xfffffffff0f4:	1
+(gdb) n
+43			add 	x0, x0, :lo12:format1
+(gdb) n
+44			bl 		printf
+(gdb) n
+Initial box values:
+46			adrp 	x0, format4							//print format4
+(gdb) n
+47			add 	x0, x0, :lo12:format4
+(gdb) n
+48			mov 	x1, x19
+(gdb) n
+49			bl 		printBox							//call subroutine printBox
+(gdb) n
+Box first origin = (0, 0)  width = 1  height = 1  area = 1
+51			adrp 	x0, format5							//print format5
+(gdb) n
+52			add 	x0, x0, :lo12:format5
+(gdb) n
+53			mov 	x1, x20
+(gdb) n
+54			bl 		printBox							//call subroutine printBox
+(gdb) n
+Box second origin = (0, 0)  width = 1  height = 1  area = 1
+56			mov 	x0, x19						//Store the pointer of firstbox to x0
+(gdb) n
+57			mov 	x1, x20						//Store the pointer of secondbox to x0
+(gdb) n
+58			bl 		equal								//call subroutine equal
+(gdb) n
+59			mov 	x23, x0								//Store the results of equal to x23
+(gdb) nx/d $fp+5248   +16
+0xfffffffff0d0:	0
+(gdb) x/d $fp+16  20
+0xfffffffff0d4:	0
+(gdb) x/d $fp+20 4
+0xfffffffff0d8:	1
+(gdb) x/d $fp+24 8
+0xfffffffff0dc:	1
+(gdb) x/d $fp+28  32
+0xfffffffff0e0:	1
+(gdb) x/d $fp+32 6
+0xfffffffff0e4:	0
+(gdb) x/d $fp+36  40
+0xfffffffff0e8:	0
+(gdb) x/d $fp+40 4
+0xfffffffff0ec:	1
+(gdb) x/d $fp+44 8
+0xfffffffff0f0:	1
+(gdb) x/d $fp+48  52
+0xfffffffff0f4:	1
+(gdb) n
+60			cmp 	x23, TRUE							//compare x23 with true
+(gdb) n
+61			b.ne	test								//If equal != true then branch to test
+(gdb) n
+63			mov		x0, x19						//Store the pointer of firstbox to x0
+(gdb) n
+64			mov 	x1, -5								//Store -5 as second argument x1
+(gdb) n
+65			mov		x2, 7								//Store 7 as third argument x2
+(gdb) n
+66			bl 		move								//call subroutine move
+(gdb) n
+68			mov 	x0, x20						//Store the pointer of secondbox to x0
+(gdb) nx/d $fp+5248  16
+0xfffffffff0d0:	-5
+(gdb) x/d $fp+16  20
+0xfffffffff0d4:	7
+(gdb) x/d $fp+20 4
+0xfffffffff0d8:	1
+(gdb) x/d $fp+24 8
+0xfffffffff0dc:	1
+(gdb) x/d $fp+28  32
+0xfffffffff0e0:	1
+(gdb) n
+69			mov 	x1, 3								//Store 3 as second argument x1
+(gdb) n
+70			bl 		expand								//call subroutine expand
+(gdb) s
+expand () at assign4.s:138
+138	expand:	stp 	x29, x30, [sp, ALLOC]!
+(gdb) s
+139			mov		x29, sp
+(gdb) s
+141			ldr 	x10, [x0, dimension_s + width_s]	//b.size.width
+(gdb) s
+142			ldr 	x11, [x0, dimension_s + height_s]	//b.size.height
+(gdb) s
+144			mul		x10, x10, x1						//b.origin.x * factor
+(gdb) s
+145			mul 	x11, x11, x1						//b.origin.y * factor
+(gdb) s
+146			mul 	x12, x10, x11						//b.origin.x * b.origin.y
+(gdb) s
+148			str 	x10, [x0, dimension_s + width_s]	//b.origin.x = b.origin.x * factor
+(gdb) s
+149			str 	x11, [x0, dimension_s + height_s]	//b.origin.y = b.origin.y * factor
+(gdb) s
+150			str 	x12, [x0, area]						//b.origin.area = b.origin.x * b.origin.y
+(gdb) s
+152			ldp 	x29, x30, [sp], DEALLOC				//Restore fp and lr from stack
+(gdb) s
+expand () at assign4.s:153
+153			ret											//return to main
+(gdb) snx/d $fp+3228  36
+0xfffffffff0e4:	0
+(gdb) x/d $fp+36  40
+0xfffffffff0e8:	0
+(gdb) x/d $fp+40 4
+0xfffffffff0ec:	3
+(gdb) x/d $fp+44 8
+0xfffffffff0f0:	3
+(gdb) x/d $fp+48  52
+0xfffffffff0f4:	9
+(gdb) n
+test () at assign4.s:72
+72	test:	adrp	x0, format2							//print format2
+(gdb) n
+73			add 	x0, x0, :lo12:format2
+(gdb) n
+74			bl		printf
+(gdb) n
+
+Changed box values:
+76			adrp 	x0, format4							//print format4
+(gdb) n
+77			add 	x0, x0, :lo12:format4
+(gdb) n
+78			mov 	x1, x19
+(gdb) n
+79			bl 		printBox							//call subroutine printBox
+(gdb) n
+Box first origin = (-5, 7)  width = 1  height = 1  area = 1
+81			adrp 	x0, format5							//print format5
+(gdb) n
+82			add 	x0, x0, :lo12:format5
+(gdb) n
+83			mov 	x1, x20
+(gdb) n
+84			bl 		printBox							//call subroutine printBox
+(gdb) n
+Box second origin = (0, 0)  width = 3  height = 3  area = 9
+[Inferior 1 (process 19613) exited with code 074]
+(gdb) n
+The program is not being run.
+(gdb) exit
+Undefined command: "exit".  Try "help".
+(gdb) q
+]0;sijia.yin@csa2:~/cpsc355/Assignment4sijia.yin@csa2:~/cpsc355/Assignment4$ exit
+exit
+
+Script done on 2019-06-08 16:59:13-06:00
